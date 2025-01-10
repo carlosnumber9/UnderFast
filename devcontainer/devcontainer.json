@@ -1,0 +1,31 @@
+{
+    "name": "Spring + React TS (Vite)",
+    "dockerFile": "./Dockerfile",
+    "customizations": {
+      "vscode": {
+        "settings": {
+          "terminal.integrated.shell.linux": "/bin/bash",
+          "editor.formatOnSave": true
+        },
+        "extensions": [
+          "vscjava.vscode-java-pack",      // Java extension
+          "esbenp.prettier-vscode",        // Code format
+          "dbaeumer.vscode-eslint",        // JS/TS linter
+          "dsznajder.es7-react-js-snippets", // React snippets
+          "streetsidesoftware.code-spell-checker" // Spell checker
+        ]
+      }
+    },
+    "features": {
+      "ghcr.io/devcontainers/features/node:1": {
+        "version": "18"
+      },
+      "ghcr.io/devcontainers/features/java:1": {
+        "version": "17"
+      }
+    },
+    "postCreateCommand": "cd backend && ./mvnw clean install", // Instalación de dependencias de backend
+    "forwardPorts": [8080, 5173], // Puertos: 8080 para Spring y 5173 para Vite
+    "workspaceFolder": "/workspace",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind"
+  }
