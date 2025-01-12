@@ -16,21 +16,21 @@ public class StationServiceTest {
     @Test
     public void testBuscarLinea() {
         int[] expectedLineA = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 };
-        assertArrayEquals(expectedLineA, stationService.buscarLinea(1));
+        assertArrayEquals(expectedLineA, stationService.getStationLine(1));
 
         int[] expectedLineC = { 38, 37, 36, 35, 34, 33, 32, 31, 30, 29, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 26,
                 27, 28 };
-        assertArrayEquals(expectedLineC, stationService.buscarLinea(38));
+        assertArrayEquals(expectedLineC, stationService.getStationLine(38));
 
-        assertNull(stationService.buscarLinea(999)); // Estación inexistente
+        assertNull(stationService.getStationLine(999)); // Estación inexistente
     }
 
     // Test para buscaIndice
     @Test
     public void testBuscaIndice() {
         int[] lineA = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-        assertEquals(0, stationService.buscaIndice(lineA, 1));
-        assertEquals(9, stationService.buscaIndice(lineA, 10));
+        assertEquals(0, stationService.getStationIndexInLine(lineA, 1));
+        assertEquals(9, stationService.getStationIndexInLine(lineA, 10));
     }
 
     // Test para calcular h (línea recta)
@@ -51,7 +51,7 @@ public class StationServiceTest {
     // Test para calcular F (g + h)
     @Test
     public void testCalcularF() {
-        double f = stationService.calcularF(1, 2, 3);
+        double f = stationService.getF(1, 2, 3);
         assertTrue(f > 0);
     }
 
@@ -98,7 +98,7 @@ public class StationServiceTest {
      * assertTrue(visitados.size() > 10);
      * }
      */
-    
+
     @Test
     public void testSumCaminoInvalidInputs() {
         ArrayList<Integer> visitados = new ArrayList<>();
