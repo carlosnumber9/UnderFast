@@ -1,6 +1,8 @@
 package com.underfast.backend.services;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,12 +24,12 @@ public class StationService {
 			"Forepark", "Leidschendam-Voorburg", "Voortburg't Loo", "Laan van NOI", "Den Haag Centraal" };
 
 	// Lines and connections
-	int[] LA = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 };
-	int[] LB = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 21, 22, 23, 24, 25 };
-	int[] LC = { 38, 37, 36, 35, 34, 33, 32, 31, 30, 29, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 26, 27, 28 };
-	int[] LD = { 38, 37, 36, 35, 34, 33, 39, 40, 41, 42, 43, 44, 45, 46, 7, 47, 48 };
-	int[] LE = { 41, 42, 43, 44, 45, 46, 7, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62 };
-	int[] connections = { 1, 7, 13, 48 };
+	Integer[] LA = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 };
+	Integer[] LB = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 21, 22, 23, 24, 25 };
+	Integer[] LC = { 38, 37, 36, 35, 34, 33, 32, 31, 30, 29, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 26, 27, 28 };
+	Integer[] LD = { 38, 37, 36, 35, 34, 33, 39, 40, 41, 42, 43, 44, 45, 46, 7, 47, 48 };
+	Integer[] LE = { 41, 42, 43, 44, 45, 46, 7, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62 };
+	Integer[] connections = { 1, 7, 13, 48 };
 
 	// Stations coordinates
 	double[] latitudes = { 51.921662, 51.9133069, 51.9100773, 51.9095579, 51.9121763, 51.9159113, 51.9182908, 51.9198553,
@@ -59,43 +61,23 @@ public class StationService {
 	 * @param station - Station ID to get the line from
 	 * @return Line the station is in
 	 */
-	public int[] getStationLine(int station) {
-
-		boolean found = false;
-		int[] result = null;
-
-		for (int i = 0; i < LA.length && !found; i++) {
-			if (LA[i] == station) {
-				found = true;
-				result = LA;
-			}
+	public Integer[] getStationLine(int station) {
+		if(Arrays.asList(LA).contains(station)) {
+			return LA;
 		}
-		for (int i = 0; i < LB.length && !found; i++) {
-			if (LB[i] == station) {
-				found = true;
-				result = LB;
-			}
+		else if(Arrays.asList(LB).contains(station)) {
+			return LB;
 		}
-		for (int i = 0; i < LC.length && !found; i++) {
-			if (LC[i] == station) {
-				found = true;
-				result = LC;
-			}
+		else if(Arrays.asList(LC).contains(station)) {
+			return LC;
 		}
-		for (int i = 0; i < LD.length && !found; i++) {
-			if (LD[i] == station) {
-				found = true;
-				result = LD;
-			}
+		else if(Arrays.asList(LD).contains(station)) {
+			return LD;
 		}
-		for (int i = 0; i < LE.length && !found; i++) {
-			if (LE[i] == station) {
-				found = true;
-				result = LE;
-			}
+		else if(Arrays.asList(LE).contains(station)) {
+			return LE;
 		}
-
-		return result;
+		else return null;
 	}
 
 	/**
@@ -104,7 +86,7 @@ public class StationService {
 	 * @param station
 	 * @return Index of station in line
 	 */
-	public int getStationIndexInLine(int[] line, int station) {
+	public int getStationIndexInLine(Integer[] line, int station) {
 		int resultado = 0;
 		for (int i = 0; i < line.length; i++) {
 			if (line[i] == station) {
@@ -152,7 +134,7 @@ public class StationService {
 	 */
 	public double g(int stationFrom, int stationTo) {
 		double g = 0;
-		int[] linea = getStationLine(stationTo);
+		Integer[] linea = getStationLine(stationTo);
 
 		if (linea.equals(LA)) {
 			g = dA;
@@ -205,8 +187,8 @@ public class StationService {
 			return 0;
 		}
 
-		int[] departureLine = getStationLine(stationFrom);
-		int[] arrivalLine = getStationLine(stationTo);
+		Integer[] departureLine = getStationLine(stationFrom);
+		Integer[] arrivalLine = getStationLine(stationTo);
 
 		if (departureLine == null || arrivalLine == null) {
 			return 0;
@@ -240,9 +222,9 @@ public class StationService {
 
 			visitedStations.add(stationFrom);
 
-			int[] linea = getStationLine(stationFrom);
+			Integer[] line = getStationLine(stationFrom);
 
-			int indice = getStationIndexInLine(linea, stationFrom);
+			int indice = getStationIndexInLine(line, stationFrom);
 
 			ArrayList<Integer> adjacentStations = new ArrayList<Integer>();
 
@@ -296,8 +278,8 @@ public class StationService {
 					adjacentStations.add(37);
 					break;
 				default:
-					adjacentStations.add(linea[indice - 1]);
-					adjacentStations.add(linea[indice + 1]);
+					adjacentStations.add(line[indice - 1]);
+					adjacentStations.add(line[indice + 1]);
 					break;
 			}
 
@@ -313,10 +295,10 @@ public class StationService {
 			ArrayList<Integer> options2 = new ArrayList<Integer>();
 			for (int i = 0; i < options.size(); i++) {
 				int est = options.get(i);
-				int[] lineaEst = getStationLine(est);
-				int[] lineaDest = getStationLine(stationTo);
+				Integer[] lineFrom = getStationLine(est);
+				Integer[] lineTo = getStationLine(stationTo);
 
-				if (lineaEst == lineaDest) {
+				if (lineFrom == lineTo) {
 					options2.add(est);
 				}
 			}

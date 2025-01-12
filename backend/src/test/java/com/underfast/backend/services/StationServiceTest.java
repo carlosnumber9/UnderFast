@@ -15,10 +15,10 @@ public class StationServiceTest {
     // Test para buscarLinea
     @Test
     public void testBuscarLinea() {
-        int[] expectedLineA = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 };
+        Integer[] expectedLineA = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 };
         assertArrayEquals(expectedLineA, stationService.getStationLine(1));
 
-        int[] expectedLineC = { 38, 37, 36, 35, 34, 33, 32, 31, 30, 29, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 26,
+        Integer[] expectedLineC = { 38, 37, 36, 35, 34, 33, 32, 31, 30, 29, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 26,
                 27, 28 };
         assertArrayEquals(expectedLineC, stationService.getStationLine(38));
 
@@ -28,7 +28,7 @@ public class StationServiceTest {
     // Test para buscaIndice
     @Test
     public void testBuscaIndice() {
-        int[] lineA = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        Integer[] lineA = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
         assertEquals(0, stationService.getStationIndexInLine(lineA, 1));
         assertEquals(9, stationService.getStationIndexInLine(lineA, 10));
     }
