@@ -82,22 +82,6 @@ public class StationService {
 
 	/**
 	 * 
-	 * @param line
-	 * @param station
-	 * @return Index of station in line
-	 */
-	public int getStationIndexInLine(Integer[] line, int station) {
-		int resultado = 0;
-		for (int i = 0; i < line.length; i++) {
-			if (line[i] == station) {
-				resultado = i;
-			}
-		}
-		return resultado;
-	}
-
-	/**
-	 * 
 	 * @param stationFrom
 	 * @param stationTo
 	 * @return Geographic straight line distance between stations. In km
@@ -224,7 +208,7 @@ public class StationService {
 
 			Integer[] line = getStationLine(stationFrom);
 
-			int indice = getStationIndexInLine(line, stationFrom);
+			int indice = Arrays.asList(line).indexOf(stationFrom);
 
 			ArrayList<Integer> adjacentStations = new ArrayList<Integer>();
 

@@ -25,14 +25,6 @@ public class StationServiceTest {
         assertNull(stationService.getStationLine(999)); // Estación inexistente
     }
 
-    // Test para buscaIndice
-    @Test
-    public void testBuscaIndice() {
-        Integer[] lineA = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-        assertEquals(0, stationService.getStationIndexInLine(lineA, 1));
-        assertEquals(9, stationService.getStationIndexInLine(lineA, 10));
-    }
-
     // Test para calcular h (línea recta)
     @Test
     public void testH() {
