@@ -8,10 +8,7 @@ public class StationService {
 
 	static double distAcc = 0;
 
-	// Lista de los nombres de las estaciones que componen el Metro, ordenadas segun
-	// el numero que
-	// le ha sido asignado a cada una de cara al codigo del programa.
-
+	// Stations names
 	String[] stations = { "Schiedam Centrum", "Marconiplein", "Delfshaven", "Coolhaven", "Dijkzigt",
 			"Eendrachtsplein", "Beurs", "Blaak", "Oostplein", "Gerdesiaweg", "Voorschoterlaan",
 			"Kralingse Zoom", "Capelsebrug", "Schenkel", "Prinsenlaan", "Oosterflank", "Alexander",
@@ -24,9 +21,7 @@ public class StationService {
 			"Berkel Westpolder", "Pijnacker Zuid", "Pijkacker Centrum", "Nootdorp", "Leidschenveen",
 			"Forepark", "Leidschendam-Voorburg", "Voortburg't Loo", "Laan van NOI", "Den Haag Centraal" };
 
-	// Listas de estaciones de cada una de las lineas, incluyendo la lista de
-	// trasbordos
-
+	// Lines and connections
 	int[] LA = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 };
 	int[] LB = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 21, 22, 23, 24, 25 };
 	int[] LC = { 38, 37, 36, 35, 34, 33, 32, 31, 30, 29, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 26, 27, 28 };
@@ -34,8 +29,7 @@ public class StationService {
 	int[] LE = { 41, 42, 43, 44, 45, 46, 7, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62 };
 	int[] connections = { 1, 7, 13, 48 };
 
-	// Coordenadas geograficas de las estaciones del Metro
-
+	// Stations coordinates
 	double[] latitudes = { 51.921662, 51.9133069, 51.9100773, 51.9095579, 51.9121763, 51.9159113, 51.9182908, 51.9198553,
 			51.9232922, 51.9259773, 51.9251463, 51.9215103, 51.9209163, 51.9326143, 51.9400373, 51.9449323,
 			51.9519653, 51.9574683, 51.9615093, 51.9606631, 51.9631505, 51.9647623, 51.9657203, 51.9687893,
@@ -53,8 +47,7 @@ public class StationService {
 			4.4561723, 4.464738, 4.4600267, 4.460434, 4.4528147, 4.4439987, 4.4351251, 4.3920017,
 			4.399744, 4.3902117, 4.3805694, 4.365416, 4.342635, 4.324196 };
 
-	// Distancias entre paradas de una misma linea (km)
-
+	// Geographic distances between stations in same line (km)
 	static double dA = 0.86;
 	static double dB = 0.87;
 	static double dC = 1.15;
@@ -63,10 +56,8 @@ public class StationService {
 
 	/**
 	 * 
-	 * @param station - id numerico de la estacion de la que se quiere saber la
-	 *                 linea en la que se encuentra.
-	 * @return Devuelve la linea en la que se encuentra la estacion pasada por
-	 *         parametro
+	 * @param station - Station ID to get the line from
+	 * @return Line the station is in
 	 */
 	public int[] getStationLine(int station) {
 
@@ -109,12 +100,9 @@ public class StationService {
 
 	/**
 	 * 
-	 * @param line    - Lista de estaciones entre las que se encuentra aquella de
-	 *                 la que se quiere saber la posicion.
-	 * @param station - id numerico de la estacion de la que se quiere saber su
-	 *                 posicion.
-	 * @return Devuelve la posicion de la linea en la que se encuentra la estacion
-	 *         pasada por parametro.
+	 * @param line
+	 * @param station
+	 * @return Index of station in line
 	 */
 	public int getStationIndexInLine(int[] line, int station) {
 		int resultado = 0;
@@ -128,10 +116,9 @@ public class StationService {
 
 	/**
 	 * 
-	 * @param stationFrom - id numerico de la estacion de origen del trayecto.
-	 * @param stationTo  - id numerico de la estacion de destino del trayecto.
-	 * @return Devuelve la distancia (En km) de la linea recta que separa las
-	 *         estaciones pasadas como parametro.
+	 * @param stationFrom
+	 * @param stationTo
+	 * @return Geographic straight line distance between stations. In km
 	 */
 	public double h(int stationFrom, int stationTo) {
 
@@ -159,10 +146,9 @@ public class StationService {
 
 	/**
 	 * 
-	 * @param stationFrom - id numerico de la estacion de origen del trayecto
-	 * @param stationTo  - id numerico de la estacion de destino del trayecto
-	 * @return Devuelve la distancia entre las estaciones pasadas como parametro,
-	 *         siguiendo el trayecto por las vias de Metro.
+	 * @param stationFrom
+	 * @param stationTo
+	 * @return Underground itinerary distance between from and to stations. In km
 	 */
 	public double g(int stationFrom, int stationTo) {
 		double g = 0;
@@ -190,12 +176,10 @@ public class StationService {
 
 	/**
 	 * 
-	 * @param stationFrom  - id numerico de la estacion de origen de la iteracion del
-	 *                  algoritmo.
-	 * @param nextStation - id numerico de la estacion siguiente de la iteracion del
-	 *                  algoritmo.
-	 * @param stationTo   - id numerico de la estacion de destino.
-	 * @return
+	 * @param stationFrom
+	 * @param nextStation
+	 * @param stationTo
+	 * @return F, being the sum between H and G
 	 */
 	public double getF(int stationFrom, int nextStation, int stationTo) {
 		double h = 0;
@@ -209,14 +193,11 @@ public class StationService {
 
 	/**
 	 * 
-	 * @param stationFrom  - id numerico de la estacion en la que se desea comenzar el
-	 *                  trayecto.
-	 * @param stationTo   - id numerico de la estacion en la que se termina el
-	 *                  recorrido.
-	 * @param distance - Resultado final (Es un valor modificado recursivamente)
-	 * @param visitedStations - Lista con las estaciones que se van visitando durante el
-	 *                  recorrido (Es un valor modificado recursivamente)
-	 * @return
+	 * @param stationFrom
+	 * @param stationTo
+	 * @param distance Recursive accumulated result distance
+	 * @param visitedStations
+	 * @return Final value of distance
 	 */
 	public double sumCamino(int stationFrom, int stationTo, double distance, ArrayList<Integer> visitedStations) {
 
@@ -230,14 +211,7 @@ public class StationService {
 		if (departureLine == null || arrivalLine == null) {
 			return 0;
 		}
-
-		/*
-		 * Si la estacion de origen coincide con la de destino, sumamos al acumulador
-		 * una vez la distancia
-		 * media entre paradas de la linea en la que se encuentre y devolvemos como
-		 * resultado el propio acumulador
-		 * (Se ha terminado el algoritmo)
-		 */
+		
 		if (stationFrom == stationTo) {
 
 			if(visitedStations.size() == 0) {
@@ -353,7 +327,7 @@ public class StationService {
 			if (options.size() == 0) {
 				System.out.println("");
 				System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-				System.out.println("No se ha encontrado un trayecto valido para llegar al destino.");
+				System.out.println("No valid itinerary for the searched trip.");
 				System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 				System.out.println("");
 				return 0;
