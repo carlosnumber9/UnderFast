@@ -1,6 +1,7 @@
 package com.underfast.backend.controllers;
 
-import com.underfast.backend.services.CalculationService;
+import com.underfast.backend.services.StationService;
+import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,10 +10,12 @@ import org.springframework.web.bind.annotation.*;
 public class CalculationController {
 
     @Autowired
-    private CalculationService calculationService;
+    private StationService stationService;
 
     @GetMapping("/calculate")
-    public double calculate(@RequestParam double input) {
-        return calculationService.performCalculation(input);
+    public double calculate(@RequestParam int departure, @RequestParam int arrival) {
+        ArrayList<Integer> visitados = new ArrayList<Integer>();
+        double distance = 0;
+        return stationService.sumCamino(departure, arrival, distance, visitados);
     }
 }
