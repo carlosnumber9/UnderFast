@@ -51,7 +51,7 @@ public class StationServiceTest {
     @Test
     public void testSumCaminoSimple() {
         ArrayList<Integer> visitados = new ArrayList<>();
-        double distance = stationService.sumCamino(1, 2, 0, visitados);
+        double distance = stationService.getDistanceBetweenStations(1, 2, 0, visitados);
         assertEquals(0.86, distance, 0.1);
         assertEquals(2, visitados.size()); // Debería visitar las dos estaciones
     }
@@ -59,7 +59,7 @@ public class StationServiceTest {
     @Test
     public void testSumCaminoConTrasbordo() {
         ArrayList<Integer> visitados = new ArrayList<>();
-        double distance = stationService.sumCamino(1, 33, 0, visitados); // Cambia de línea
+        double distance = stationService.getDistanceBetweenStations(1, 33, 0, visitados); // Cambia de línea
         assertTrue(distance > 0); // Debe encontrar un camino
         assertTrue(visitados.size() > 2); // Múltiples estaciones
     }
@@ -67,7 +67,7 @@ public class StationServiceTest {
     @Test
     public void testSumCaminoImposible() {
         ArrayList<Integer> visitados = new ArrayList<>();
-        double distance = stationService.sumCamino(1, 999, 0, visitados); // Estación inexistente
+        double distance = stationService.getDistanceBetweenStations(1, 999, 0, visitados); // Estación inexistente
         assertEquals(0, distance);
         assertEquals(0, visitados.size());
     }
@@ -75,7 +75,7 @@ public class StationServiceTest {
     @Test
     public void testSumCaminoMismaEstacion() {
         ArrayList<Integer> visitados = new ArrayList<>();
-        double distance = stationService.sumCamino(1, 1, 0, visitados);
+        double distance = stationService.getDistanceBetweenStations(1, 1, 0, visitados);
         assertEquals(0, distance, 0.1);
         assertEquals(1, visitados.size());
     }
@@ -94,8 +94,8 @@ public class StationServiceTest {
     @Test
     public void testSumCaminoInvalidInputs() {
         ArrayList<Integer> visitados = new ArrayList<>();
-        double distanceA = stationService.sumCamino(-1, 1, 0, visitados);
-        double distanceB = stationService.sumCamino(1, -1, 0, visitados);
+        double distanceA = stationService.getDistanceBetweenStations(-1, 1, 0, visitados);
+        double distanceB = stationService.getDistanceBetweenStations(1, -1, 0, visitados);
         assertEquals(0, distanceA);
         assertEquals(0, distanceB);
 

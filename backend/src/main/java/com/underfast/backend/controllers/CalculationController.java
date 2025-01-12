@@ -16,6 +16,6 @@ public class CalculationController {
     public double calculate(@RequestParam int departure, @RequestParam int arrival) {
         ArrayList<Integer> visitados = new ArrayList<Integer>();
         double distance = 0;
-        return stationService.sumCamino(departure, arrival, distance, visitados);
+        return stationService.getDistanceBetweenStations(departure, arrival, distance, visitados);
     }
 }

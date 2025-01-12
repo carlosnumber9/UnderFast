@@ -165,7 +165,7 @@ public class StationService {
 	 * @param visitedStations
 	 * @return Final value of distance
 	 */
-	public double sumCamino(int stationFrom, int stationTo, double distance, ArrayList<Integer> visitedStations) {
+	public double getDistanceBetweenStations(int stationFrom, int stationTo, double distance, ArrayList<Integer> visitedStations) {
 
 		if(stationFrom < 0 || stationTo < 0) {
 			return 0;
@@ -189,17 +189,17 @@ public class StationService {
 
 			distAcc += g(stationFrom, stationTo);
 
-			System.out.println("Trayecto recorrido:");
+			System.out.println("Itinerary made:");
 			for (int i = 0; i < visitedStations.size(); i++) {
-				int parada = visitedStations.get(i);
-				System.out.println((i + 1) + ". " + stations[parada - 1] + " [" + parada + "]");
+				int newStop = visitedStations.get(i);
+				System.out.println((i + 1) + ". " + stations[newStop - 1] + " [" + newStop + "]");
 			}
 
 			return distAcc;
 		}
 
 		else if (getStationLine(stationTo) == LE || getStationLine(stationFrom) == LE) {
-			return sumCamino(stationFrom, 7, distance, visitedStations) + sumCamino(stationTo, 7, distance, visitedStations);
+			return getDistanceBetweenStations(stationFrom, 7, distance, visitedStations) + getDistanceBetweenStations(stationTo, 7, distance, visitedStations);
 		}
 
 		else {
@@ -208,7 +208,7 @@ public class StationService {
 
 			Integer[] line = getStationLine(stationFrom);
 
-			int indice = Arrays.asList(line).indexOf(stationFrom);
+			int indexFrom = Arrays.asList(line).indexOf(stationFrom);
 
 			ArrayList<Integer> adjacentStations = new ArrayList<Integer>();
 
@@ -262,8 +262,8 @@ public class StationService {
 					adjacentStations.add(37);
 					break;
 				default:
-					adjacentStations.add(line[indice - 1]);
-					adjacentStations.add(line[indice + 1]);
+					adjacentStations.add(line[indexFrom - 1]);
+					adjacentStations.add(line[indexFrom + 1]);
 					break;
 			}
 
@@ -300,7 +300,7 @@ public class StationService {
 			} else {
 				int nextStep = options.get(0);
 				if (options.size() == 1 && options.get(0) == stationTo) {
-					distance = sumCamino(nextStep, stationTo, distance, visitedStations);
+					distance = getDistanceBetweenStations(nextStep, stationTo, distance, visitedStations);
 				} else {
 
 					double f = 100;
@@ -316,7 +316,7 @@ public class StationService {
 
 					distAcc += g(stationFrom, nextStep);
 
-					distance = sumCamino(nextStep, stationTo, distance, visitedStations);
+					distance = getDistanceBetweenStations(nextStep, stationTo, distance, visitedStations);
 				}
 				return distance;
 			}
